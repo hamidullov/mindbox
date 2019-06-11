@@ -10,8 +10,6 @@ namespace Mindbox.Tools.Shapes
         private double? _square;
         private bool? _isOrthogonal;
 
-        private double _a, _b, _c;
-
         public Triangle(double l1, double l2, double l3)
         {
             ValidateSides(l1, l2, l3);
@@ -29,44 +27,44 @@ namespace Mindbox.Tools.Shapes
         {
             if (l1 < l2)
             {
-                _a = l1;
+                A = l1;
                 if (l2 < l3)
                 {
-                    _b = l2;
-                    _c = l3;
+                    B = l2;
+                    C = l3;
                 }
                 else
                 {
-                    _b = l3;
-                    _c = l2;
+                    B = l3;
+                    C = l2;
                 }
             }
             else
             {
-                _a = l2;
+                A = l2;
                 if (l1 < l3)
                 {
-                    _b = l1;
-                    _c = l3;
+                    B = l1;
+                    C = l3;
                 }
                 else
                 {
-                    _b = l3;
-                    _c = l1;
+                    B = l3;
+                    C = l1;
                 }
             }
         }
 
-        public double A => _a;
-        public double B => _b;
-        public double C => _c;
+        public double A { get; private set; }
+        public double B { get; private set; }
+        public double C { get; private set; }
         public double Square => (_square ?? (_square = CalcSquare())).Value;
 
         private double CalcSquare()
         {
             if (IsOrthogonal)
             {
-                return _a * _b / 2;
+                return A * B / 2;
             }
 
             var p = (A + B + C) / 2;
@@ -80,7 +78,7 @@ namespace Mindbox.Tools.Shapes
             {
                 if (_isOrthogonal == null)
                 {
-                    _isOrthogonal = Math.Abs(_c * _c - (_a * _a + _b * _b)) < 0.000001;
+                    _isOrthogonal = Math.Abs(C * C - (A * A + B * B)) < 0.000001;
                 }
 
                 return _isOrthogonal.Value;
